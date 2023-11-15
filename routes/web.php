@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,54 +31,22 @@ Route::get('/about', function () {
 });
 
 
-Route::get('/blog', function () {
-    $blog_posts = [
-        [
-            "title" => "Uyee",
-            "slug" => "uyee",
-            "author" => "Charr",
-            "body" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima harum ullam voluptatibus rem, dolorum quae, exercitationem quidem obcaecati voluptatum vitae inventore a necessitatibus quaerat cumque laborum incidunt cum cupiditate assumenda. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium soluta commodi quibusdam accusamus veniam eos. Explicabo sit sunt pariatur tenetur. Natus sunt nulla modi. Dolore placeat minima consequatur nam architecto?",
-        ],
-        [
-            "title" => "Hahay",
-            "slug" => "hahay",
-            "author" => "Charr",
-            "body" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima harum ullam voluptatibus rem, dolorum quae, exercitationem quidem obcaecati voluptatum vitae inventore a necessitatibus quaerat cumque laborum incidunt cum cupiditate assumenda. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium soluta commodi quibusdam accusamus veniam eos. Explicabo sit sunt pariatur tenetur. Natus sunt nulla modi. Dolore placeat minima consequatur nam architecto?",
-        ]
-    ];
+// gk dipake lagi, dipindah ke post controller
+// Route::get('/posts', function () {
+//     return view('posts', [  
+//         "title" => "Post",
+//         "posts" => Post::all() // manggil function static pake ::
+//     ]);
+// });
 
-    return view('posts', [
-        "title" => "Post",
-        "posts" => $blog_posts
-    ]);
-});
+Route::get('/posts', [PostController::class, 'index']);
 
 // halaman single post
-Route::get('/posts/{slug}', function ($slug) {
-    $blog_posts = [
-        [
-            "title" => "Uyee",
-            "slug" => "uyee",
-            "author" => "Charr",
-            "body" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima harum ullam voluptatibus rem, dolorum quae, exercitationem quidem obcaecati voluptatum vitae inventore a necessitatibus quaerat cumque laborum incidunt cum cupiditate assumenda. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium soluta commodi quibusdam accusamus veniam eos. Explicabo sit sunt pariatur tenetur. Natus sunt nulla modi. Dolore placeat minima consequatur nam architecto?",
-        ],
-        [
-            "title" => "Hahay",
-            "slug" => "hahay",
-            "author" => "Charr",
-            "body" => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima harum ullam voluptatibus rem, dolorum quae, exercitationem quidem obcaecati voluptatum vitae inventore a necessitatibus quaerat cumque laborum incidunt cum cupiditate assumenda. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium soluta commodi quibusdam accusamus veniam eos. Explicabo sit sunt pariatur tenetur. Natus sunt nulla modi. Dolore placeat minima consequatur nam architecto?",
-        ]
-    ];
+// Route::get('/posts/{slug}', function ($slug) { // gk dipake lagi, dipindah ke post controller
+//     return view('post', [
+//         "title" => "Single Post",
+//         "post" => Post::find($slug) // manggil function static pake ::
+//     ]);
+// });
 
-    $new_post = [];
-    foreach ($blog_posts as $post) {
-        if ($post["slug"] === $slug) {
-            $new_post = $post;
-        }
-    }
-
-    return view('post', [
-        "title" => "Single Post",
-        "post" => $new_post
-    ]);
-});
+Route::get('/posts/{slug}', [PostController::class, 'show']);
