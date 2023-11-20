@@ -49,4 +49,6 @@ Route::get('/posts', [PostController::class, 'index']);
 //     ]);
 // });
 
-Route::get('/posts/{slug}', [PostController::class, 'show']);
+// Route::get('/posts/{slug}', [PostController::class, 'show']);
+// Route::get('/posts/{post}', [PostController::class, 'show']); // route model binding
+Route::get('/posts/{post:slug}', [PostController::class, 'show']); // route model binding
