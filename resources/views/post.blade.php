@@ -3,6 +3,9 @@
 @section('container')
 <article class="mb-3">
     <h3>{{ $post->title }}</h3>
+
+    <p>By Charr in <a href="/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a></p>
+
     {{-- <h5>By: {{ $post->author }}</h5> --}}
     {{-- {{ $post->body }} --}}
     {!! $post->body !!} {{-- buat eksekusi tag html --}}
